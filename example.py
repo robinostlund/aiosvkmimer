@@ -28,7 +28,7 @@ def nice_price_output(prices, prices_sum, description):
     table.padding_width = 2
     for date, price in prices.items():
         table.add_row([date, price])
-    table.add_row(['', prices_sum])
+    table.add_row(['Total', prices_sum])
     print(table)
 
 async def main():
