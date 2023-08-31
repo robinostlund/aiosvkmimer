@@ -31,18 +31,9 @@ def nice_price_output(prices, prices_sum, description):
     table.add_row(['', prices_sum])
     print(table)
 
-
-
-    # print(f'{headers[0]: <25}{headers[1]}')
-    # for date, price in prices.items():
-    #     #print(f'{date} -> {price}')
-    #     print(f'{date: <25}{price}')
-    # print(f'{prices_sum: >25}')
-
-
 async def main():
     mimer = Mimer(
-        kw_available=8
+        kw_available=AVAILABLE_KW
     )
     await mimer.fetch(
         period_from=PERIOD_FROM,
