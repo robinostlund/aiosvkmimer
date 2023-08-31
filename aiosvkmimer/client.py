@@ -4,6 +4,7 @@ import aiohttp
 import pandas
 import yarl
 import datetime
+import logging
 
 from io import StringIO
 
@@ -42,6 +43,8 @@ class Mimer:
         return f'{date_object.strftime("%m")}%2F{date_object.strftime("%d")}%2F{date_object.strftime("%Y")}%2000%3A00%3A00'
 
     async def _fetch_exchange_rates(self, period_from: str, period_to: str) -> None:
+        logging.debug('Fetching exchange rates')
+
         # create http session
         session_timeout = aiohttp.ClientTimeout(total=None, sock_connect=self.http_timeout, sock_read=self.http_timeout)
         async with aiohttp.ClientSession(timeout=session_timeout) as http_session:
@@ -56,10 +59,13 @@ class Mimer:
                 if response.status == 200:
                     csv_data = StringIO(await response.text())
                     self.exchange_rates = pandas.read_csv(csv_data, sep=";")
+                    logging.debug('Fetched exchange rates')
                 else:
-                    print('Could not fetch prices')
+                    logging.error('Could not fetch exchange rates')
 
     async def _fetch_prices(self, period_from: str, period_to: str) -> None:
+        logging.debug('Fetching prices')
+
         # create http session
         session_timeout = aiohttp.ClientTimeout(total=None, sock_connect=self.http_timeout, sock_read=self.http_timeout)
         async with aiohttp.ClientSession(timeout=session_timeout) as http_session:
@@ -76,8 +82,9 @@ class Mimer:
                 if response.status == 200:
                     csv_data = StringIO(await response.text())
                     self.prices = pandas.read_csv(csv_data, sep=";")
+                    logging.debug('Fetched prices')
                 else:
-                    print('Could not fetch prices')
+                    logging.error('Could not fetch prices')
 
     def process_exchange_rates(self) -> dict:
         response = {}
