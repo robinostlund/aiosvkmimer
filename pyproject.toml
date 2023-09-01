@@ -34,7 +34,7 @@ exclude = [".github*", "tests*"]
 
 [tool.setuptools_scm]
 fallback_version = "0.0.1"
-write_to = "src/version.py"
+#write_to = "src/version.py"
 
 [tool.black]
 line-length = 120
