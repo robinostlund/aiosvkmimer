@@ -6,7 +6,6 @@ import pprint
 from aiosvkmimer.client import Mimer
 from prettytable import PrettyTable
 
-
 # settings
 AVAILABLE_KW = 8
 LOGGING_LEVEL = logging.INFO
