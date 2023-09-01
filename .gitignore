@@ -8,4 +8,5 @@ dist
 .coverage
 .eggs
 .vscode
-aiosvkmimer/version.py
+.pytest_cache
+src/version.py

@@ -1,6 +1,5 @@
 [project]
 name = "aiosvkmimer"
-#version = "0.0.1" # DO NOT CHANGE
 authors = [
     { name="Robin Ostlund", email="me@robinostlund.name" }
 ]
@@ -30,12 +29,12 @@ build-backend = "setuptools.build_meta"
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
-where = ["aiosvkmimer"]
+where = ["src"]
 exclude = [".github*", "tests*"]
 
 [tool.setuptools_scm]
 fallback_version = "0.0.1"
-write_to = "aiosvkmimer/version.py"
+write_to = "src/version.py"
 
 [tool.black]
 line-length = 120
