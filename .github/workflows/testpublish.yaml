@@ -29,22 +29,6 @@ jobs:
           pip install build wheel twine setuptools setuptools_scm
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # - name: Extract tag name
-      #   id: tag
-      #   run: echo ::set-output name=TAG_NAME::$(echo $GITHUB_REF | cut -d / -f 3)
-
-      # - name: Update version in pyproject.toml
-      #   run: >-
-      #     sed -i "s/{{VERSION_PLACEHOLDER}}/${{ env.GITHUB_REF_NAME }}/g" pyproject.toml
-
-      - name: Get the release version
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
-
-      - name: Update version in pyproject.toml
-        run: >-
-          sed -i "s/version = \"0.0.1\"/version = \"${{ steps.get_version.outputs.VERSION }}\"/g" pyproject.toml
-
       - name: Build package
         run: |
           python -m build --outdir dist/
@@ -56,4 +40,6 @@ jobs:
         with:
           password: ${{ secrets.PYPI_TOKEN_TEST }}
           repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/
+          print-hash: true
 

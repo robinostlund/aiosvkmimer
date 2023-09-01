@@ -3,7 +3,7 @@ import pytest
 import logging
 from datetime import date
 
-from aiosvkmimer.client import Mimer
+from src.aiosvkmimer.client import Mimer
 
 # settings
 AVAILABLE_KW = 8
