@@ -11,6 +11,7 @@ from io import StringIO
 MIMER_PRICE_FILE = "https://mimer.svk.se/PrimaryRegulation/DownloadText"
 MIMER_EXCHANGE_FILE = "https://mimer.svk.se/ExchangeRate/DownloadText"
 
+
 class Mimer:
     def __init__(self, kw_available: int = 1):
         self.kw_available = kw_available
@@ -23,7 +24,6 @@ class Mimer:
         self.http_timeout = 15
         self.prices = pandas.DataFrame()
         self.exchange_rates = pandas.DataFrame()
-
 
     async def fetch(self, period_from: str, period_to: str) -> None:
         """
@@ -141,7 +141,6 @@ class Mimer:
 
         return response
 
-
     def process_prices(self, column: str) -> dict:
         """
         Processes prices from mimer
@@ -180,7 +179,6 @@ class Mimer:
             response = {item["date"]: item["price"] for item in prices.to_dict("records")}
 
         return response
-
 
     def get_fcr_n_prices(self) -> dict:
         column = "FCR-N Pris (EUR/MW)"

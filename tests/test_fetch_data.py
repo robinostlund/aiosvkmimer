@@ -18,6 +18,7 @@ logging.basicConfig(
     level=LOGGING_LEVEL,
 )
 
+
 @pytest.mark.asyncio
 async def test_exchange_rates():
     """Test to get exchange rates from mimer"""
@@ -26,6 +27,7 @@ async def test_exchange_rates():
     await mimer.fetch(period_from=PERIOD_FROM, period_to=PERIOD_TO)
 
     assert len(mimer.process_exchange_rates()) != 0
+
 
 @pytest.mark.asyncio
 async def test_fcr_n_prices():
@@ -36,6 +38,7 @@ async def test_fcr_n_prices():
 
     assert len(mimer.get_fcr_n_prices()) != 0
 
+
 @pytest.mark.asyncio
 async def test_fcr_d_up_prices():
     """Test to get fcr up prices from mimer"""
@@ -44,6 +47,7 @@ async def test_fcr_d_up_prices():
     await mimer.fetch(period_from=PERIOD_FROM, period_to=PERIOD_TO)
 
     assert len(mimer.get_fcr_d_up_prices()) != 0
+
 
 @pytest.mark.asyncio
 async def test_fcr_d_down_prices():
