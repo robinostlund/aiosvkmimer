@@ -38,7 +38,6 @@ async def main():
         period_to=PERIOD_TO
     )
 
-    exchange_rates = mimer.process_exchange_rates()
     prices_fcr_n = mimer.get_fcr_n_prices()
     prices_fcr_d_up = mimer.get_fcr_d_up_prices()
     prices_fcr_d_down = mimer.get_fcr_d_down_prices()
