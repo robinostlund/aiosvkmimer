@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 import asyncio
 import aiohttp
-import pandas
-import yarl
 import datetime
 import logging
+import pandas
+import yarl
 
 from io import StringIO
 
-# https://mimer.svk.se/PrimaryRegulation/DownloadText?periodFrom=08/23/2023 00:00:00&periodTo=08/31/2023 00:00:00&auctionTypeId=1&productTypeId=0
-MIMER_CSV_FILE = 'https://mimer.svk.se/PrimaryRegulation/DownloadText'
-
-# https://mimer.svk.se/ExchangeRate/DownloadText?periodFrom=07%2F31%2F2023%2000%3A00%3A00&periodTo=09%2F01%2F2023%2000%3A00%3A00
+MIMER_PRICE_FILE = 'https://mimer.svk.se/PrimaryRegulation/DownloadText'
 MIMER_EXCHANGE_FILE = 'https://mimer.svk.se/ExchangeRate/DownloadText'
-
 
 class Mimer:
     def __init__(self, kw_available: int = 1):
@@ -30,6 +26,16 @@ class Mimer:
 
 
     async def fetch(self, period_from: str, period_to: str) -> None:
+        """
+        Fetches data from mimer
+
+        Args:
+            period_from     (str): Start date, example: 2023-08-01
+            period_to       (str): End date, example: 2023-08-01
+
+        Returns:
+            None
+        """
         # fetch exchange rates
         await self._fetch_exchange_rates(period_from, period_to)
 
@@ -43,6 +49,16 @@ class Mimer:
         return f'{date_object.strftime("%m")}%2F{date_object.strftime("%d")}%2F{date_object.strftime("%Y")}%2000%3A00%3A00'
 
     async def _fetch_exchange_rates(self, period_from: str, period_to: str) -> None:
+        """
+        Fetches exchange rates from mimer
+
+        Args:
+            period_from     (str): Start date, example: 2023-08-01
+            period_to       (str): End date, example: 2023-08-01
+
+        Returns:
+            None
+        """
         logging.debug('Fetching exchange rates')
 
         # create http session
@@ -64,13 +80,23 @@ class Mimer:
                     logging.error('Could not fetch exchange rates')
 
     async def _fetch_prices(self, period_from: str, period_to: str) -> None:
+        """
+        Fetches prices from mimer
+
+        Args:
+            period_from     (str): Start date, example: 2023-08-01
+            period_to       (str): End date, example: 2023-08-01
+
+        Returns:
+            None
+        """
         logging.debug('Fetching prices')
 
         # create http session
         session_timeout = aiohttp.ClientTimeout(total=None, sock_connect=self.http_timeout, sock_read=self.http_timeout)
         async with aiohttp.ClientSession(timeout=session_timeout) as http_session:
             # create url
-            url = f'{MIMER_CSV_FILE}'
+            url = f'{MIMER_PRICE_FILE}'
             url += f'?periodFrom={self.__create_encoded_date(self.__create_date(period_from))}'
             url += f'&periodTo={self.__create_encoded_date(self.__create_date(period_to))}'
             url += '&auctionTypeId=1'
@@ -87,6 +113,12 @@ class Mimer:
                     logging.error('Could not fetch prices')
 
     def process_exchange_rates(self) -> dict:
+        """
+        Processes exchange rates from mimer
+
+        Returns:
+            Dict: { '2023-08-01': 11.2 }
+        """
         response = {}
 
         if not self.exchange_rates.empty:
@@ -109,6 +141,12 @@ class Mimer:
 
 
     def process_prices(self, column: str) -> dict:
+        """
+        Processes prices from mimer
+
+        Returns:
+            Dict: { '2023-08-01 00:00': 0.005 }
+        """
         response = {}
 
         if not self.prices.empty and not self.exchange_rates.empty:

@@ -7,12 +7,11 @@ from aiosvkmimer.client import Mimer
 from prettytable import PrettyTable
 
 
-# Settings
+# settings
 AVAILABLE_KW = 8
 LOGGING_LEVEL = logging.INFO
-PERIOD_FROM = '2023-08-31'
-PERIOD_TO = '2023-08-31'
-
+PERIOD_FROM = '2023-09-01'
+PERIOD_TO = '2023-09-01'
 
 # configure logging
 logging.basicConfig(
