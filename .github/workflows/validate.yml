@@ -65,7 +65,7 @@ jobs:
 
       - name: Update version in pyproject.toml
         run: >-
-          sed -i "s/{{VERSION_PLACEHOLDER}}/${{ env.RELEASE_VERSION }}/g" pyproject.toml
+          sed -i "s/{{VERSION_PLACEHOLDER}}/0.0.0/g" pyproject.toml
 
       - name: Install dependencies
         run: |
