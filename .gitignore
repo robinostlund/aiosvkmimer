@@ -8,3 +8,4 @@ dist
 .coverage
 .eggs
 .vscode
+aiosvkmimer/version.py
