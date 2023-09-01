@@ -6,7 +6,7 @@ authors = [
 ]
 description = "Asyncio library for SVK Mimer"
 readme = "README.md"
-requires-python = ">3.9"
+requires-python = ">3.7"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -19,15 +19,12 @@ classifiers = [
 
 [build-system]
 requires = [
-    "setuptools>=65",
-    "wheel>=0.37.0",
-    "setuptools_scm>=6.0",
+    "setuptools>=65"
 ]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools_scm]
-fallback_version = "0.0.1"
-write_to = "aiosvkmimer/version.py"
+[tool.setuptools.packages.find]
+where = ["aiosvkmimer"]
 
 [tool.black]
 line-length = 120
