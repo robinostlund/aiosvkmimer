@@ -34,13 +34,13 @@ jobs:
       #   run: echo ::set-output name=TAG_NAME::$(echo $GITHUB_REF | cut -d / -f 3)
       #   run: echo "{TAG_NAME}=$(echo $GITHUB_REF | cut -d / -f 3)" >> $GITHUB_OUTPUT
 
-      - name: Get the release version
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
+      # - name: Get the release version
+      #   id: get_version
+      #   run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
 
-      - name: Update version in pyproject.toml
-        run: >-
-          sed -i "s/version = \"0.0.1\"/version = \"${{ steps.get_version.outputs.VERSION }}\"/g" pyproject.toml
+      # - name: Update version in pyproject.toml
+      #   run: >-
+      #     sed -i "s/version = \"0.0.1\"/version = \"${{ steps.get_version.outputs.VERSION }}\"/g" pyproject.toml
 
       # - name: Update version in pyproject.toml
       #   run: >-
