@@ -9,6 +9,11 @@ jobs:
   pypi-publish:
     name: Upload Package to PyPi Test Repository
     runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/aiosvkmimer
+    permissions:
+      id-token: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -41,5 +46,6 @@ jobs:
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
+          password: ${{ secrets.PYPI_TOKEN_TEST }}
           repository-url: https://test.pypi.org/legacy/
 
