@@ -14,8 +14,8 @@ PERIOD_TO = date.today().strftime("%Y-%m-%d")
 # configure logging
 logging.basicConfig(
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
-    datefmt='%Y-%m-%d %H:%M:%S',
-    level=LOGGING_LEVEL
+    datefmt="%Y-%m-%d %H:%M:%S",
+    level=LOGGING_LEVEL,
 )
 
 @pytest.mark.asyncio
