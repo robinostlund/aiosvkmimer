@@ -1,6 +1,5 @@
 [project]
 name = "aiosvkmimer"
-version = "0.0.1"
 authors = [
     { name="Robin Ostlund", email="me@robinostlund.name" }
 ]
