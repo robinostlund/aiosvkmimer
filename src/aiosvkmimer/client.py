@@ -18,7 +18,7 @@ class Mimer:
         self.http_headers = {
             "Cache-Control": "no-cache",
             "Pragma": "no-cache",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36"
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36",
         }
         self.http_timeout = 15
         self.prices = pandas.DataFrame()
@@ -46,7 +46,9 @@ class Mimer:
         return datetime.datetime.strptime(date, "%Y-%m-%d")
 
     def __create_encoded_date(self, date_object: datetime) -> str:
-        return f"{date_object.strftime('%m')}%2F{date_object.strftime('%d')}%2F{date_object.strftime('%Y')}%2000%3A00%3A00"
+        return (
+            f"{date_object.strftime('%m')}%2F{date_object.strftime('%d')}%2F{date_object.strftime('%Y')}%2000%3A00%3A00"
+        )
 
     async def _fetch_exchange_rates(self, period_from: str, period_to: str) -> None:
         """
@@ -71,7 +73,7 @@ class Mimer:
             yurl = yarl.URL(url, encoded=True)
 
             # fetch data
-            async with http_session.get(yurl, headers = self.http_headers) as response:
+            async with http_session.get(yurl, headers=self.http_headers) as response:
                 if response.status == 200:
                     csv_data = StringIO(await response.text())
                     self.exchange_rates = pandas.read_csv(csv_data, sep=";")
@@ -104,7 +106,7 @@ class Mimer:
             yurl = yarl.URL(url, encoded=True)
 
             # fetch data
-            async with http_session.get(yurl, headers = self.http_headers) as response:
+            async with http_session.get(yurl, headers=self.http_headers) as response:
                 if response.status == 200:
                     csv_data = StringIO(await response.text())
                     self.prices = pandas.read_csv(csv_data, sep=";")
@@ -125,17 +127,17 @@ class Mimer:
             exchange_rates = self.exchange_rates[["Period", "Värde"]].copy()
 
             # convert str to float
-            exchange_rates["Värde"] = exchange_rates["Värde"].str.replace(",",".").astype(float)
+            exchange_rates["Värde"] = exchange_rates["Värde"].str.replace(",", ".").astype(float)
 
             # remove hour:mm from period
-            exchange_rates["Period"] =  pandas.to_datetime(exchange_rates["Period"], format="%Y-%m-%d %H:%M")
+            exchange_rates["Period"] = pandas.to_datetime(exchange_rates["Period"], format="%Y-%m-%d %H:%M")
             exchange_rates["Period"] = exchange_rates["Period"].dt.strftime("%Y-%m-%d")
 
             # rename datum to date
             exchange_rates.rename(columns={"Period": "date"}, inplace=True)
 
             # generate response
-            response = {item["date"]:item["Värde"] for item in exchange_rates.to_dict("records")}
+            response = {item["date"]: item["Värde"] for item in exchange_rates.to_dict("records")}
 
         return response
 
@@ -153,7 +155,7 @@ class Mimer:
             prices = self.prices[["Datum", column]].copy()
 
             # convert str to float
-            prices[column] = prices[column].str.replace(",",".").astype(float)
+            prices[column] = prices[column].str.replace(",", ".").astype(float)
 
             # convert mw to kw
             prices[column] = prices[column].div(1000)
@@ -165,7 +167,7 @@ class Mimer:
             prices.rename(columns={"Datum": "date", column: "price"}, inplace=True)
 
             # remove summary row
-            prices.drop(prices.tail(1).index,inplace=True)
+            prices.drop(prices.tail(1).index, inplace=True)
 
             # convert euro to sek
             exchange_rates = self.process_exchange_rates()
@@ -175,7 +177,7 @@ class Mimer:
                 prices.at[row.Index, "price"] = row.price * exchange_rate
 
             # generate response
-            response = {item["date"]:item["price"] for item in prices.to_dict("records")}
+            response = {item["date"]: item["price"] for item in prices.to_dict("records")}
 
         return response
 
