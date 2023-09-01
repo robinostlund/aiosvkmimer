@@ -30,7 +30,7 @@ async def test_exchange_rates():
         period_to=PERIOD_TO
     )
 
-    assert len(mimer.process_exchange_rates()) is not 0
+    assert len(mimer.process_exchange_rates()) != 0
 
 @pytest.mark.asyncio
 async def test_fcr_n_prices():
@@ -44,7 +44,7 @@ async def test_fcr_n_prices():
         period_to=PERIOD_TO
     )
 
-    assert len(mimer.get_fcr_n_prices()) is not 0
+    assert len(mimer.get_fcr_n_prices()) != 0
 
 @pytest.mark.asyncio
 async def test_fcr_d_up_prices():
@@ -58,7 +58,7 @@ async def test_fcr_d_up_prices():
         period_to=PERIOD_TO
     )
 
-    assert len(mimer.get_fcr_d_up_prices()) is not 0
+    assert len(mimer.get_fcr_d_up_prices()) != 0
 
 @pytest.mark.asyncio
 async def test_fcr_d_down_prices():
@@ -72,4 +72,4 @@ async def test_fcr_d_down_prices():
         period_to=PERIOD_TO
     )
 
-    assert len(mimer.get_fcr_d_down_prices()) is not 0
+    assert len(mimer.get_fcr_d_down_prices()) != 0
