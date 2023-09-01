@@ -1,5 +1,6 @@
 [project]
 name = "aiosvkmimer"
+version = "{{VERSION_PLACEHOLDER}}"
 authors = [
     { name="Robin Ostlund", email="me@robinostlund.name" }
 ]
