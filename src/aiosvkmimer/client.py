@@ -184,6 +184,17 @@ class Mimer:
         column = "FCR-N Pris (EUR/MW)"
         return self.process_prices(column)
 
+    def get_fcr_d_prices(self) -> dict:
+        prices = self.get_fcr_d_up_prices()
+        prices_down = self.get_fcr_d_down_prices()
+
+        for key, val in prices_down.items():
+            if key in prices:
+                prices[key] += val
+            else:
+                prices[key] = val
+        return prices
+
     def get_fcr_d_up_prices(self) -> dict:
         column = "FCR-D upp Pris (EUR/MW)"
         return self.process_prices(column)

@@ -38,6 +38,15 @@ async def test_fcr_n_prices():
 
     assert len(mimer.get_fcr_n_prices()) != 0
 
+@pytest.mark.asyncio
+async def test_fcr_d_prices():
+    """Test to get fcr  prices from mimer"""
+    mimer = Mimer(kw_available=AVAILABLE_KW)
+
+    await mimer.fetch(period_from=PERIOD_FROM, period_to=PERIOD_TO)
+
+    assert len(mimer.get_fcr_d_prices()) != 0
+
 
 @pytest.mark.asyncio
 async def test_fcr_d_up_prices():
