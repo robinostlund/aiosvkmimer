@@ -40,7 +40,7 @@ async def test_fcr_n_prices():
 
 @pytest.mark.asyncio
 async def test_fcr_d_prices():
-    """Test to get fcr  prices from mimer"""
+    """Test to get fcr d prices from mimer"""
     mimer = Mimer(kw_available=AVAILABLE_KW)
 
     await mimer.fetch(period_from=PERIOD_FROM, period_to=PERIOD_TO)
@@ -50,7 +50,7 @@ async def test_fcr_d_prices():
 
 @pytest.mark.asyncio
 async def test_fcr_d_up_prices():
-    """Test to get fcr up prices from mimer"""
+    """Test to get fcr d up prices from mimer"""
     mimer = Mimer(kw_available=AVAILABLE_KW)
 
     await mimer.fetch(period_from=PERIOD_FROM, period_to=PERIOD_TO)
@@ -60,7 +60,7 @@ async def test_fcr_d_up_prices():
 
 @pytest.mark.asyncio
 async def test_fcr_d_down_prices():
-    """Test to get fcr down prices from mimer"""
+    """Test to get fcr d down prices from mimer"""
     mimer = Mimer(kw_available=AVAILABLE_KW)
 
     await mimer.fetch(period_from=PERIOD_FROM, period_to=PERIOD_TO)
