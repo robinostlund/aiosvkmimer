@@ -5,7 +5,7 @@ Asyncio library for SVK Mimer https://mimer.svk.se/
 
 
 ## Example
-```
+```python
 #!/usr/bin/env python3
 import asyncio
 import logging
@@ -73,7 +73,7 @@ if __name__ == '__main__':
 ```
 
 ### Output
-```
+```bash
 +-----------------------+----------------------+
 |  Date                 |  FCR-N Price (SEK)   |
 +-----------------------+----------------------+
