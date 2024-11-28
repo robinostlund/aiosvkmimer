@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Preload zstandard to avoid dynamic imports
+import zstandard
+
 import asyncio
 import aiohttp
 import datetime
