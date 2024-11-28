@@ -1,4 +1,5 @@
 """Test to fetch data from mimer"""
+
 import pytest
 import logging
 from datetime import date
@@ -37,6 +38,7 @@ async def test_fcr_n_prices():
     await mimer.fetch(period_from=PERIOD_FROM, period_to=PERIOD_TO)
 
     assert len(mimer.get_fcr_n_prices()) != 0
+
 
 @pytest.mark.asyncio
 async def test_fcr_d_prices():
